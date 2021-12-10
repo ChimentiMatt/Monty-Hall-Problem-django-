@@ -1,4 +1,10 @@
-from django.http import HttpResponse
+from django.shortcuts import render
+from .models import OriginalAnswer
 
 def myview(request):
-    return HttpResponse('hello world!')
+    original = OriginalAnswer.objects.all()
+
+    context = {
+        'original': original
+    }
+    return render(request, 'appMonty/home.html', context)

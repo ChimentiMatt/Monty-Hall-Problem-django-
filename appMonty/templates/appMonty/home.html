@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        {% load static %}
+        <meta charset="utf-8">
+        {% comment %} <link rel="stylesheet"  href="{% static 'willfalls/style.css'  %}"> {% endcomment %}
+
+        <title></title>
+    </head>
+    <body>
+        <div id="app">
+            {% for item in original %}
+                <p>Original Correct: {{ item.correct }}</p>
+                <p>Original Wrong{{ item.wrong}} </p>
+
+                <p>Changed Correct: {{ item.changedCorrect }}</p>
+                <p>Changed Wrong{{ item.changedWrong}} </p>
+                [[cat]]
+            {% endfor %} 
+            test
+        </div>
+
+
+
+
+        <script src="https://unpkg.com/vue/dist/vue.js"></script>  
+        <script>
+            new Vue({
+                el: "#app",
+                delimiters: ['[[', ']]'],
+                data() {
+                  return {
+                    cat: 'cat'
+                  }
+                },
+                computed: {
+                  someComputed() {
+                    return this.someValue * 10;
+                  }
+                }
+              });
+        </script>
+    </body>
+</html>
