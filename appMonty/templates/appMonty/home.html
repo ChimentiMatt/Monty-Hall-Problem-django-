@@ -12,8 +12,8 @@
         <div id="app">
             {% for item in original %}
                 <p>
-                    {% if forloop.last %} Original Correct: {{ item.correct }}</p> 
-                    <p>Original Wrong{{ item.wrong}} </p>
+                    {% if forloop.last %} Original Correct:</p>  <p id="originalRight">{{ item.correct }}</p></p> 
+                    <p>Original Wrong<p id="originalWrong">{{ item.wrong}} </p></p>
                     {% endif %}
 
                 
@@ -65,7 +65,8 @@
                   return {
                     csrfmiddlewaretoken: '',
                     
-                    cat: 'cat'
+                    cat: 'cat',
+                    winCount: 0,
                   }
                 },
 
@@ -165,12 +166,20 @@
                         return Math.floor(Math.random() * 3) + 1
                     },
                     axiosPost: function() {
+                        let originalRight = document.getElementById('originalRight')
+                        originalRight = originalRight.innerHTML
+                        originalRight = parseInt(originalRight)
+                        originalRight += 1
+                        let originalWrong = document.getElementById('originalWrong')
+                        originalWrong = originalWrong.innerHTML
+                        originalWrong = parseInt(originalWrong)
+                        originalWrong += 1
                         axios({
                             url: "{% url 'appMonty:frontendpost' %}",
                             method: 'put',
                             data: {
-                                changeCorrect: 5,
-                                changedWrong: 5,
+                                changeCorrect: originalRight,
+                                changedWrong: originalWrong,
                             },
                             headers: {
                                 'X-CSRFToken': this.csrfmiddlewaretoken
