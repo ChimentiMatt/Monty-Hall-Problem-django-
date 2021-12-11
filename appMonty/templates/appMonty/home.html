@@ -67,6 +67,9 @@
                     
                     cat: 'cat',
                     winCount: 0,
+
+                    originalRight: 0,
+                    originalWrong: 0,
                   }
                 },
 
@@ -93,9 +96,20 @@
                         else{
                             if (winningNum == 1){
                                 alert('you win')
+                                this.originalRight = document.getElementById('originalRight')
+                                this.originalRight = this.originalRight.innerHTML
+                                this.originalRight = parseInt(this.originalRight)
+                                this.originalRight = this.originalRight + 1
+                                this.axiosPost()
+
                             }
                             else{
                                 alert('you lose')
+                                this.originalWrong = document.getElementById('originalWrong')
+                                this.originalWrong = this.originalWrong.innerHTML
+                                this.originalWrong = parseInt(this.originalWrong)
+                                this.originalWrong = this.originalWrong + 1
+                                this.axiosPost()
                             }
                         }
                     },
@@ -166,20 +180,12 @@
                         return Math.floor(Math.random() * 3) + 1
                     },
                     axiosPost: function() {
-                        let originalRight = document.getElementById('originalRight')
-                        originalRight = originalRight.innerHTML
-                        originalRight = parseInt(originalRight)
-                        originalRight += 1
-                        let originalWrong = document.getElementById('originalWrong')
-                        originalWrong = originalWrong.innerHTML
-                        originalWrong = parseInt(originalWrong)
-                        originalWrong += 1
                         axios({
                             url: "{% url 'appMonty:frontendpost' %}",
                             method: 'put',
                             data: {
-                                changeCorrect: originalRight,
-                                changedWrong: originalWrong,
+                                changeCorrect: this.originalRight,
+                                changedWrong: this.originalWrong,
                             },
                             headers: {
                                 'X-CSRFToken': this.csrfmiddlewaretoken
@@ -187,7 +193,6 @@
                           }).then(response => {
                             console.log(response.data, 'cat')
                           })
-           
                       },
                 },
                 mounted() {
