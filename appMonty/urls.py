@@ -3,5 +3,6 @@ from . import views
 
 app_name = 'appMonty'
 urlpatterns = [
-    path('myview/', views.myview, name='myview')
+    path('', views.myview, name='myview'),
+    path('postview/', views.fontendpost, name='postview')
 ]

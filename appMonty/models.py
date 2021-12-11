@@ -4,11 +4,11 @@ class OriginalAnswer(models.Model):
     correct = models.IntegerField()
     wrong = models.IntegerField()
 
-    changedCorrect = models.IntegerField()
-    changedWrong = models.IntegerField()
+    # changedCorrect = models.IntegerField()
+    # changedWrong = models.IntegerField()
 
     def __str__(self):
-        return 'Answers'
+        return 'correct'
 
 
 # class ChangedAnswer(models.Model):

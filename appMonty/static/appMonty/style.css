@@ -3,3 +3,21 @@
     margin: 0;
     box-sizing: border-box;
 }
+
+#app{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#gameFace{
+    display: flex;
+    margin-top: 5rem;
+}
+
+#gameFace p {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
