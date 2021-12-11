@@ -4,8 +4,8 @@
     <head>
         {% load static %}
         <meta charset="utf-8">
-        {% comment %} <link rel="stylesheet"  href="{% static 'willfalls/style.css'  %}"> {% endcomment %}
-
+        {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'appMonty/style.css' %}"> {% endcomment %}
+        <link rel="stylesheet" type="text/css" href="{% static 'appMonty/style.css' %}">
         <title></title>
     </head>
     <body>
@@ -18,14 +18,38 @@
                 <p>Changed Wrong{{ item.changedWrong}} </p>
                 [[cat]]
             {% endfor %} 
-            test
+
+
+            <div id="door1">
+                <p v-on:click='door1'>door</p>
+              </div>
+              
+              <div id="door2">
+                    <p v-on:click='door2'>door</p>
+              </div>
+              
+              <div id="door3">
+                    <p v-on:click='door3'>door</p>
+              </div>
         </div>
-
-
-
 
         <script src="https://unpkg.com/vue/dist/vue.js"></script>  
         <script>
+
+            let door1 = document.getElementById('door1')
+            let door2 = document.getElementById('door2')
+            let door3 = document.getElementById('door3')
+
+            let door1Wins = false
+            let door2Wins = false
+            let door3Wins = false
+
+            let firstRound = true
+            let door = ''
+
+            let winningNum = Math.floor(Math.random() * 3) + 1
+            let oneOrTwo = Math.floor(Math.random() * + 2) + 1
+
             new Vue({
                 el: "#app",
                 delimiters: ['[[', ']]'],
@@ -34,10 +58,106 @@
                     cat: 'cat'
                   }
                 },
-                computed: {
-                  someComputed() {
-                    return this.someValue * 10;
-                  }
+                methods: {
+                    door1(){
+                        if (firstRound){
+                            if (winningNum == 1){
+                                oneOrTwo += 1
+                                door = 'door' +oneOrTwo
+                                console.log(door)
+                                document.getElementById(door).style.opacity = 0 
+                                firstRound = false
+                                
+                            }
+                            else if ( winningNum == 2){
+                                document.getElementById('door3').style.opacity = 0 
+                                firstRound = false
+                            }
+                            else if (winningNum == 3){
+                                document.getElementById('door2').style.opacity = 0 
+                                firstRound = false
+                            }
+                        }
+                        else{
+                            if (winningNum == 1){
+                                alert('you win')
+                            }
+                            else{
+                                alert('you lose')
+                            }
+                        }
+                    },
+                    door2(){
+                        if (firstRound){
+                            if (winningNum == 2){
+                                if (oneOrTwo == 2){
+                    
+                                    document.getElementById('door3').style.opacity = 0 
+                                    firstRound = false
+                                }
+                                else{
+                                    door = 'door' +oneOrTwo
+                                    document.getElementById(door).style.opacity = 0 
+                                    firstRound = false
+                                }
+                            }
+                            else if ( winningNum == 1){
+                                document.getElementById('door3').style.opacity = 0 
+                                firstRound = false
+                            }
+                            else if (winningNum == 3){
+                                document.getElementById('door1').style.opacity = 0 
+                                firstRound = false
+                            }
+                        }
+                        else{
+                            if (winningNum == 2){
+                                alert('you win')
+                            }
+                            else{
+                                alert('you lose')
+                            }
+                        }
+                    },
+                    
+                    door3(){
+                        if (firstRound){ 
+                            if (winningNum == 3){
+                                door = 'door' +oneOrTwo
+                                document.getElementById(door).style.opacity = 0 
+                                firstRound = false
+                            }
+                            else if (winningNum == 2) {
+                                document.getElementById('door1').style.opacity = 0 
+                                firstRound = false
+                            }
+                            else  if (winningNum == 1){
+                                document.getElementById('door2').style.opacity = 0 
+                                firstRound = false
+                            }
+                        }
+                        else{
+                            if (winningNum == 3){
+                                alert('you win')
+                            }
+                            else{
+                                alert('you lose')
+                            }
+                        }
+                    },
+
+                    oneOrTwo() {
+                        return Math.floor(Math.random() * + 2) + 1
+                    },
+                    
+                    winningNum() {
+                        return Math.floor(Math.random() * 3) + 1
+                    }
+                },
+                mounted() {
+                    console.log(this.oneOrTwo())
+                    console.log(door2Wins, 'd2wins')
+                    
                 }
               });
         </script>
