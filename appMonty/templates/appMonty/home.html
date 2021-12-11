@@ -11,11 +11,11 @@
     <body>
         <div id="app">
             {% for item in original %}
-                <p>Original Correct: {{ item.correct }}</p>
-                <p>Original Wrong{{ item.wrong}} </p>
+                <p>
+                    {% if forloop.last %} Original Correct: {{ item.correct }}</p> 
+                    <p>Original Wrong{{ item.wrong}} </p>
+                    {% endif %}
 
-                {% comment %} <p>Changed Correct: {{ item.changedCorrect }}</p>
-                <p>Changed Wrong{{ item.changedWrong}} </p> {% endcomment %}
                 
             {% endfor %} 
 
@@ -167,10 +167,10 @@
                     axiosPost: function() {
                         axios({
                             url: "{% url 'appMonty:frontendpost' %}",
-                            method: 'post',
+                            method: 'put',
                             data: {
-                                changeCorrect: 2,
-                                changedWrong: 3,
+                                changeCorrect: 5,
+                                changedWrong: 5,
                             },
                             headers: {
                                 'X-CSRFToken': this.csrfmiddlewaretoken
