@@ -24,8 +24,9 @@ def myview(request):
 #     )
 #     return redirect('appMonty:myview')
 
-def fontendpost(request):
-    data = json.load(request.body)
+def frontendpost(request):
+    data = json.loads(request.body)
+    print(data, '!!!!!!!!!!!!!!!!!!!!!!!!!')
     changeCorrect = data['changeCorrect']
     changedWrong = data['changedWrong']
 
