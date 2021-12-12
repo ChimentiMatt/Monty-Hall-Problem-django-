@@ -126,12 +126,12 @@
                                 else{
                                     alert('switched win')
                                     this.switchedCorrect = this.switchedCorrect + 1
-                                    this.firstDoorClick1 = false
                                     firstRound = false
                                     this.axiosPost()
                                     this.resetGame()
-                                    this.firstDoorClick2 = false
-                                    this.firstDoorClick3 = false
+                                    this.firstDoorClick1 = false
+                                    this.secondDoorClick1 = false
+                                    this.thirdDoorClick1 = false
                                 }
                             }
 
@@ -141,26 +141,31 @@
                                 if (this.firstDoorClick1 == true){
                                     alert('original loss')
                                     this.originalWrong = this.originalWrong + 1
-                                    firstRound = false
+                                    firstRound = true
                                     this.axiosPost()
                                     this.resetGame()
                                     this.firstDoorClick1 = false
+                                    this.secondDoorClick1 = false
+                                    this.thirdDoorClick1 = false
                                 }
                                 // if door 1 loses with switch
                                 else{
                                     alert('switched loss')
                                     this.switchedWrong = this.switchedWrong + 1
-                                    firstRound = false
+                                    firstRound = true
                                     this.axiosPost()
                                     this.resetGame()
-                                    this.firstDoorClick2 = false
-                                    this.firstDoorClick3 = false
+                                    this.firstDoorClick1 = false
+                                    this.secondDoorClick1 = false
+                                    this.thirdDoorClick1 = false
                                 }
                             }
                         }
                     },
                     door2(){
+                        // round
                         if (firstRound){
+                            alert(winningNum)
                             if (winningNum == 2){
                                 if (oneOrTwo == 2){
                                     document.getElementById('door3').style.visibility = 'hidden'
@@ -185,25 +190,39 @@
                                 this.secondDoorClick1 = true
                             }
                         }
+                        // round 2
                         else{
+                            // if door 2 wins (no switch)
+                        
                             if (winningNum == 2){
                                 if (this.secondDoorClick1 == true) {
-                                    alert('you win')
+                                    alert('win no switch')
                                     this.originalRight = this.originalRight + 1
+                                    firstRound = true
                                     this.axiosPost()
                                     this.resetGame()
+                                    this.firstDoorClick1 = false
                                     this.secondDoorClick1 = false
+                                    this.thirdDoorClick1 = false
                                 }
+                                //if door 2 wins with switch
                                 else{
-                                    alert('you win (no post yet)')
-
+                                    alert('switched win')
+                                    this.switchedCorrect = this.switchedCorrect + 1
+                                    firstRound = false
+                                    this.axiosPost()
                                     this.resetGame()
+                                    this.firstDoorClick1 = false
+                                    this.secondDoorClick1 = false
+                                    this.thirdDoorClick1 = false
                                 }
                                 
                             }
+                            // if door 2 loses
                             else{
+                                // if door 2 loses (no switch)
                                 if (this.secondDoorClick1 == true){
-                                    alert('you lose')
+                                    alert('lose no switch')
                                     firstRound = true
                                     this.resetGame()
                                    
@@ -212,9 +231,16 @@
                                     this.resetGame()
                                     this.secondDoorClick1 = false
                                 }
+                                // if door 2 loses with switch
                                 else{
-                                    alert('You lose, (no post yet)')
+                                    alert('switched loss')
+                                    this.switchedWrong = this.switchedWrong + 1
+                                    firstRound = false
+                                    this.axiosPost()
                                     this.resetGame()
+                                    this.firstDoorClick1 = false
+                                    this.secondDoorClick1 = false
+                                    this.thirdDoorClick1 = false
                                 }
                             }
                         }
@@ -222,28 +248,89 @@
                     
                     door3(){
                         if (firstRound){ 
+                            // alert(winningNum)
                             if (winningNum == 3){
                                 door = 'door' +oneOrTwo
                                 document.getElementById(door).style.visibility = 'hidden'
                                 firstRound = false
-                            }
-                            else if (winningNum == 2) {
-                                document.getElementById('door1').style.visibility = 'hidden'
-                                firstRound = false
-                            }
-                            else  if (winningNum == 1){
-                                document.getElementById('door2').style.visibility = 'hidden'
-                                firstRound = false
-                            }
-                        }
-                        else{
-                            if (winningNum == 3){
-                                alert('you win')
+                                this.thirdDoorClick1 = true
                             }
                             else{
-                                alert('you lose')
+                                door = 'door' + oneOrTwo
+                                if (door == 2){
+                                    door += 1
+                                    document.getElementById(door).style.visibility = 'hidden'
+                                    firstRound = false
+                                    this.thirdDoorClick1 = true
+                                }
+                                else{
+                                    document.getElementById(door).style.visibility = 'hidden'
+                                    firstRound = false
+                                    this.thirdDoorClick1 = true
+                                }
                             }
                         }
+                        // round 2
+                        else{
+                            // if door 3 wins (no switch)
+                            if (winningNum == 3){
+                                // alert("winning 3 and made it")
+                                if (this.thirdDoorClick1 == true) {
+                                    alert('Original Win')
+                                    this.originalRight = this.originalRight + 1
+                                    firstRound = true
+                                    this.axiosPost()
+                                    this.resetGame()
+                                    this.firstDoorClick1 = false
+                                    this.secondDoorClick1 = false
+                                    this.thirdDoorClick1 = false
+                                }
+                                //if door 3 wins with switch
+                                else{
+                                    alert('Switched win')
+                                    alert(this.thirdDoorClick1)
+                                    this.switchedCorrect = this.switchedCorrect + 1
+                                    firstRound = false
+                                    this.axiosPost()
+                                    this.resetGame()
+                                    this.firstDoorClick1 = false
+                                    this.secondDoorClick1 = false
+                                    this.thirdDoorClick1 = false
+                                }
+                                
+                            }
+                            // if door 2 loses
+                            else{
+                                // if door 3 loses (no switch)
+                                if (this.thirdDoorClick1 == true){
+                                    alert('Lose Original')
+                                    firstRound = true
+                                    this.resetGame()
+                                   
+                                    this.originalWrong = this.originalWrong + 1
+                                    this.axiosPost()
+                                    this.resetGame()
+                                    this.thirdDoorClick1 = false
+                                }
+                                // if door 2 loses with switch
+                                else{
+                                    alert('Loss Switched')
+                                    this.switchedWrong = this.switchedWrong + 1
+                                    firstRound = false
+                                    this.axiosPost()
+                                    this.resetGame()
+                                    this.firstDoorClick1 = false
+                                    this.secondDoorClick1 = false
+                                    this.thirdDoorClick1 = false
+                                }
+                            }
+                        }
+
+
+
+
+
+
                     },
 
                     oneOrTwo() {
