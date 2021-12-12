@@ -76,6 +76,10 @@
 
                     getList: [],
                     lastOriginal: [],
+
+                    firstDoorClick1: false,
+                    secondDoorClick1: false,
+                    thirdDoorClick1: false,
                   }
                 },
 
@@ -83,39 +87,49 @@
                     door1(){
                         if (firstRound){
                             if (winningNum == 1){
+                                this.firstDoorClick1 = true
                                 oneOrTwo += 1
                                 door = 'door' +oneOrTwo
                                 console.log(door)
                                 document.getElementById(door).style.visibility = 'hidden'
                                 firstRound = false
-                                
                             }
                             else if ( winningNum == 2){
+                                this.firstDoorClick1 = true
                                 document.getElementById('door3').style.visibility = 'hidden'
                                 firstRound = false
                             }
                             else if (winningNum == 3){
+                                this.firstDoorClick1 = true
                                 document.getElementById('door2').style.visibility = 'hidden'
                                 firstRound = false
                             }
                         }
                         else{
                             if (winningNum == 1){
-                                alert('you win')
-                                // this.originalRight = document.getElementById('originalRight')
-                                // this.originalRight = this.originalRight.innerHTML
-                                // this.originalRight = parseInt(this.originalRight)
-                                this.originalRight = this.originalRight + 1
-                                this.axiosPost()
+                                if (this.firstDoorClick1 == true){
+                                    alert('you win')
+                                    this.originalRight = this.originalRight + 1
+                                    this.axiosPost()
+                                    this.resetGame()
+                                    this.firstDoorClick1 = false
+                                }
+                                else{
+                                    this.resetGame()
+                                }
 
                             }
                             else{
-                                alert('you lose')
-                                // this.originalWrong = document.getElementById('originalWrong')
-                                // this.originalWrong = this.originalWrong.innerHTML
-                                // this.originalWrong = parseInt(this.originalWrong)
-                                this.originalWrong = this.originalWrong + 1
-                                this.axiosPost()
+                                if (this.firstDoorClick1 == true){
+                                    alert('you lose')
+                                    this.originalWrong = this.originalWrong + 1
+                                    this.axiosPost()
+                                    this.resetGame()
+                                    this.firstDoorClick1 = false
+                                }
+                                else{
+                                    this.resetGame()
+                                }
                             }
                         }
                     },
@@ -123,31 +137,59 @@
                         if (firstRound){
                             if (winningNum == 2){
                                 if (oneOrTwo == 2){
-                    
                                     document.getElementById('door3').style.visibility = 'hidden'
                                     firstRound = false
+                                    this.secondDoorClick1 = true
                                 }
                                 else{
                                     door = 'door' +oneOrTwo
                                     document.getElementById(door).style.visibility = 'hidden'
                                     firstRound = false
+                                    this.secondDoorClick1 = true
                                 }
                             }
                             else if ( winningNum == 1){
                                 document.getElementById('door3').style.visibility = 'hidden'
                                 firstRound = false
+                                this.secondDoorClick1 = true
                             }
                             else if (winningNum == 3){
                                 document.getElementById('door1').style.visibility = 'hidden'
                                 firstRound = false
+                                this.secondDoorClick1 = true
                             }
                         }
                         else{
                             if (winningNum == 2){
-                                alert('you win')
+                                if (this.secondDoorClick1 == true) {
+                                    alert('you win')
+                                    this.originalRight = this.originalRight + 1
+                                    this.axiosPost()
+                                    this.resetGame()
+                                    this.secondDoorClick1 = false
+                                }
+                                else{
+                                    alert('you win (no post yet)')
+
+                                    this.resetGame()
+                                }
+                                
                             }
                             else{
-                                alert('you lose')
+                                if (this.secondDoorClick1 == true){
+                                    alert('you lose')
+                                    firstRound = true
+                                    this.resetGame()
+                                   
+                                    this.originalWrong = this.originalWrong + 1
+                                    this.axiosPost()
+                                    this.resetGame()
+                                    this.secondDoorClick1 = false
+                                }
+                                else{
+                                    alert('You lose, (no post yet)')
+                                    this.resetGame()
+                                }
                             }
                         }
                     },
@@ -184,6 +226,14 @@
                     
                     winningNum() {
                         return Math.floor(Math.random() * 3) + 1
+                    },
+                    resetGame() {
+                        firstRound = true
+                        winningNum = Math.floor(Math.random() * 3) + 1
+                        oneOrTwo = Math.floor(Math.random() * + 2) + 1
+                        document.getElementById('door1').style.visibility = 'visible'
+                        document.getElementById('door2').style.visibility = 'visible'
+                        document.getElementById('door3').style.visibility = 'visible'
                     },
                     axiosPost: function() {
                         axios({
