@@ -19,11 +19,11 @@
             <p id="originalRight">Original Correct: [[originalRight ]]</p>
    
             <p id="originalWrong">Original Wrong: [[originalWrong ]]  </p>
-            <p> Original Win % [[originalPercentage]]</p>
+            <p> Original Win: [[originalPercentage]] %</p>
             <br>
             <p>Switched Door Correct: [[ switchedCorrect ]]</p>
             <p>Switched door Wrong: [[ switchedWrong ]]</p>
-            <p>Switched Win %: </p>
+            <p>Switched Win: [[switchedPercentage]] % </p>
             <div id="gameFace">
                 <div id="door1">
                     <p v-on:click='door1'>door</p>
@@ -79,6 +79,7 @@
                     switchedWrong: 0,
 
                     originalPercentage: 0,
+                    switchedPercentage: 0,
 
                     getList: [],
                     lastOriginal: [],
@@ -96,7 +97,7 @@
                                 this.firstDoorClick1 = true
                                 oneOrTwo += 1
                                 door = 'door' +oneOrTwo
-                                console.log(door)
+                               
                                 document.getElementById(door).style.visibility = 'hidden'
                                 firstRound = false
                             }
@@ -165,7 +166,7 @@
                     door2(){
                         // round
                         if (firstRound){
-                            alert(winningNum)
+                            // alert(winningNum)
                             if (winningNum == 2){
                                 if (oneOrTwo == 2){
                                     document.getElementById('door3').style.visibility = 'hidden'
@@ -209,7 +210,7 @@
                                 else{
                                     alert('switched win')
                                     this.switchedCorrect = this.switchedCorrect + 1
-                                    firstRound = false
+                                    firstRound = true
                                     this.axiosPost()
                                     this.resetGame()
                                     this.firstDoorClick1 = false
@@ -288,7 +289,7 @@
                                 //if door 3 wins with switch
                                 else{
                                     alert('Switched win')
-                                    alert(this.thirdDoorClick1)
+                                    
                                     this.switchedCorrect = this.switchedCorrect + 1
                                     firstRound = false
                                     this.axiosPost()
@@ -390,8 +391,13 @@
                             this.switchedWrong = this.lastOriginal.switchedWrong
                         })
                         .then(() => {
-                            let originalPercentagePre = (this.originalRight / this.originalWrong) * 100
-                            this.originalPercentage = originalPercentagePre.toFixed(2)
+                            let originalPercentagePre = this.originalRight / (this.originalRight + this.originalWrong) 
+                            let preFixedOriginal = originalPercentagePre * 100
+                            this.originalPercentage = parseFloat(preFixedOriginal).toFixed(2)
+
+                            let switchedPercentagePre = this.switchedCorrect / (this.switchedCorrect + this.switchedWrong) 
+                            let preFixed = switchedPercentagePre * 100
+                            this.switchedPercentage = parseFloat(preFixed).toFixed(2)
                         })
                     },
 
