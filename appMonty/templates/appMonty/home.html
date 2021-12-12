@@ -70,6 +70,9 @@
 
                     originalRight: 0,
                     originalWrong: 0,
+
+                    getList: [],
+                    lastOriginal: [],
                   }
                 },
 
@@ -202,10 +205,18 @@
                         fetch('/get_data', myOption)
                         .then((res) => res.json())
                         .then((res) => {
-                            
                             console.log(res.items)
+                            this.getList = res.items
                         })
-
+                        .then(() => {
+                            // get last item from list and save it
+                            let arrLen = this.getList.length - 1
+                            this.lastOriginal = this.getList[arrLen]
+                            console.log(this.lastOriginal.correct)
+                            this.originalRight = this.lastOriginal.correct
+                            console.log(this.lastOriginal.wrong)
+                            this.originalWrong = this.lastOriginal.wrong
+                        })
                     },
 
                 },
