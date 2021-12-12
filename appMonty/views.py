@@ -29,18 +29,23 @@ def frontendpost(request):
     print(data, '!!!!!!!!!!!!!!!!!!!!!!!!!')
     changeCorrect = data['changeCorrect']
     changedWrong = data['changedWrong']
+    switchedCorrect = data['switchedCorrect']
+    switchedWrong = data['switchedWrong']
 
-    newData = OriginalAnswer(correct=changeCorrect, wrong=changedWrong)
+    newData = OriginalAnswer(correct=changeCorrect, wrong=changedWrong, switchedCorrect=switchedCorrect, switchedWrong=switchedWrong)
     newData.save()
     return HttpResponse('ok')
 
 def get_data(request):
     all_data = OriginalAnswer.objects.all()
-    print(all_data,'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+    # print(all_data,'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+
     data_list = []
     for item in all_data:
         data_list.append({
             'correct': item.correct,
-            'wrong': item.wrong
+            'wrong': item.wrong,
+            'switchedCorrect': item.switchedCorrect,
+            'switchedWrong': item.switchedWrong
         })
     return JsonResponse({'items': data_list})

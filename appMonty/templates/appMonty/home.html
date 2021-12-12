@@ -16,10 +16,14 @@
                     <p>Original Wrong<p id="originalWrong">{{ item.wrong}} </p></p>
                     {% endif %}
             {% endfor %}  {% endcomment %}
-            <p id="originalRight">Original Correct: [[originalRight ]] Original % [[originalPercentage]]</p>
+            <p id="originalRight">Original Correct: [[originalRight ]]</p>
    
             <p id="originalWrong">Original Wrong: [[originalWrong ]]  </p>
-
+            <p> Original Win % [[originalPercentage]]</p>
+            <br>
+            <p>Switched Door Correct: [[ switchedCorrect ]]</p>
+            <p>Switched door Wrong: [[ switchedWrong ]]</p>
+            <p>Switched Win %: </p>
             <div id="gameFace">
                 <div id="door1">
                     <p v-on:click='door1'>door</p>
@@ -71,6 +75,8 @@
 
                     originalRight: 0,
                     originalWrong: 0,
+                    switchedCorrect: 0,
+                    switchedWrong: 0,
 
                     originalPercentage: 0,
 
@@ -106,29 +112,49 @@
                             }
                         }
                         else{
+                            // if door 1 wins (no switch)
                             if (winningNum == 1){
                                 if (this.firstDoorClick1 == true){
-                                    alert('you win')
+                                    alert('original win')
                                     this.originalRight = this.originalRight + 1
+                                    firstRound = false
                                     this.axiosPost()
                                     this.resetGame()
                                     this.firstDoorClick1 = false
                                 }
+                                //if door 1 wins with switch
                                 else{
+                                    alert('switched win')
+                                    this.switchedCorrect = this.switchedCorrect + 1
+                                    this.firstDoorClick1 = false
+                                    firstRound = false
+                                    this.axiosPost()
                                     this.resetGame()
+                                    this.firstDoorClick2 = false
+                                    this.firstDoorClick3 = false
                                 }
-
                             }
+
+                            // if door 1 loses
                             else{
+                                // if door 1 loses (no switch)
                                 if (this.firstDoorClick1 == true){
-                                    alert('you lose')
+                                    alert('original loss')
                                     this.originalWrong = this.originalWrong + 1
+                                    firstRound = false
                                     this.axiosPost()
                                     this.resetGame()
                                     this.firstDoorClick1 = false
                                 }
+                                // if door 1 loses with switch
                                 else{
+                                    alert('switched loss')
+                                    this.switchedWrong = this.switchedWrong + 1
+                                    firstRound = false
+                                    this.axiosPost()
                                     this.resetGame()
+                                    this.firstDoorClick2 = false
+                                    this.firstDoorClick3 = false
                                 }
                             }
                         }
@@ -242,12 +268,13 @@
                             data: {
                                 changeCorrect: this.originalRight,
                                 changedWrong: this.originalWrong,
+                                switchedCorrect: this.switchedCorrect,
+                                switchedWrong: this.switchedWrong,
                             },
                             headers: {
                                 'X-CSRFToken': this.csrfmiddlewaretoken
                             }
                           }).then(response => {
-                            // console.log(response.data, 'cat')
                             this.getData()
                           })
                       },
@@ -267,11 +294,13 @@
                             let arrLen = this.getList.length - 1
                             this.lastOriginal = this.getList[arrLen]
 
-                            console.log(this.lastOriginal.correct)
                             this.originalRight = this.lastOriginal.correct
 
-                            console.log(this.lastOriginal.wrong)
                             this.originalWrong = this.lastOriginal.wrong
+                           
+                            this.switchedCorrect = this.lastOriginal.switchedCorrect
+              
+                            this.switchedWrong = this.lastOriginal.switchedWrong
                         })
                         .then(() => {
                             let originalPercentagePre = (this.originalRight / this.originalWrong) * 100
