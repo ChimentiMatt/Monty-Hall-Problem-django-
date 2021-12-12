@@ -194,11 +194,27 @@
                             console.log(response.data, 'cat')
                           })
                       },
+
+                    getData: function() {
+                        const myOption = {
+                            method: 'GET',
+                        };
+                        fetch('/get_data', myOption)
+                        .then((res) => res.json())
+                        .then((res) => {
+                            
+                            console.log(res.items)
+                        })
+
+                    },
+
                 },
                 mounted() {
                     console.log(this.oneOrTwo())
                     console.log(door2Wins, 'd2wins')
                     this.csrfmiddlewaretoken = document.querySelector('input[name="csrfmiddlewaretoken"]').value
+
+                    this.getData()
                 }
               } 
               Vue.createApp(App).mount('#app')

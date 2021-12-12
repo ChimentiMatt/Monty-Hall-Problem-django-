@@ -34,3 +34,13 @@ def frontendpost(request):
     newData.save()
     return HttpResponse('ok')
 
+def get_data(request):
+    all_data = OriginalAnswer.objects.all()
+    print(all_data,'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+    data_list = []
+    for item in all_data:
+        data_list.append({
+            'correct': item.correct,
+            'wrong': item.wrong
+        })
+    return JsonResponse({'items': data_list})
