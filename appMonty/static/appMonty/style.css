@@ -149,25 +149,38 @@
     #titleContainer h1{
         font-size: 3rem;
     }
+    #originalContainer{
+        width: 19rem;
+    }
     #originalContainer h1{
         font-size: 2rem;
-        padding-right: 1.5rem;
+        /* text-align: center; */
+        /* padding-right: 1.5rem; */
+    }
+    #switchedContainer{
+        width: 19rem;
     }
     #switchedContainer h1{
         font-size: 2rem;
         padding-right: 1rem;
     }
     #resultsContainer{
-        width: 36rem;
+        width: 95vw;
     }
     #explanation{
-        margin-left: 11vw;
-        margin-right: 11vw;
+        margin-left: 5vw;
+        margin-right: 5vw;
         line-height: 3rem;
         font-size: 2rem;
     }
     #preGameBtn{
         margin-top: 2.5rem;
         font-size: 2rem;
+        margin-bottom: 7.5rem;
+    }
+    #inGameExplanation{
+        width: 80vw;
+        text-align: center;
+        height: 5rem;
     }
 }
