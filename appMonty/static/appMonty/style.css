@@ -151,9 +151,11 @@
     }
     #originalContainer h1{
         font-size: 2rem;
+        padding-right: 1.5rem;
     }
     #switchedContainer h1{
         font-size: 2rem;
+        padding-right: 1rem;
     }
     #resultsContainer{
         width: 36rem;
