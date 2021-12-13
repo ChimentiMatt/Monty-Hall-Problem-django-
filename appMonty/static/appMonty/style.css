@@ -140,11 +140,16 @@
 
 @media (max-width: 1000px) {
     #titleContainer{
-        margin-top: 50%;
+        margin-top: 20%;
     }
     #explanation{
         margin-left: 11vw;
         margin-right: 11vw;
-        line-height: 1.7rem;
+        line-height: 3rem;
+        font-size: 2rem;
+    }
+    #preGameBtn{
+        margin-top: 2.5rem;
+        font-size: 2rem;
     }
 }
