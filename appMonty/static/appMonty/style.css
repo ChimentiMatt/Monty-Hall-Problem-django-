@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+
 }
 
 #app{
@@ -17,7 +18,28 @@
     margin-top: 5rem;
 }
 
-#gameFace p {
+#gameFace button {
     margin-left: 1rem;
     margin-right: 1rem;
+    border: none;
+    background: none;
+}
+
+#gameFace button:hover {
+    opacity: .5;
+}
+
+#door2img, #door1img, #door3img{
+    height: 25rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+#zindexSheet{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: -1;
 }

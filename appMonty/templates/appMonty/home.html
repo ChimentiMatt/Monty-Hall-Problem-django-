@@ -26,18 +26,23 @@
             <p>Switched Win: [[switchedPercentage]] % </p>
             <div id="gameFace">
                 <div id="door1">
-                    <p v-on:click='door1'>door</p>
+                    {% comment %} <button v-on:click='door1'>door</button> {% endcomment %}
+                    <img id="door1img" src="{% static 'appMonty/closedDoor.jpg' %}" alt="Closed Door"  v-on:click='door1'>
                 </div>
                 
                 <div id="door2">
-                        <p v-on:click='door2'>door</p>
+                        {% comment %} <button v-on:click='door2'>door</button> {% endcomment %}
+                        <img id="door2img" src="{% static 'appMonty/closedDoor.jpg' %}" alt="Closed Door"  v-on:click='door2'>
                 </div>
                 
                 <div id="door3">
-                        <p v-on:click='door3'>door</p>
+                        {% comment %} <button v-on:click='door3'>door</button> {% endcomment %}
+                        <img id="door3img" src="{% static 'appMonty/closedDoor.jpg' %}" alt="Closed Door"  v-on:click='door3'>
                 </div>
                       {% csrf_token %}
-                <button v-on:click="axiosPost">Test</button>
+                {% comment %} <img src="{% static 'appMonty/closedDoor.jpg' %}" alt="Closed Door"> {% endcomment %}
+
+                <div id="zindexSheet"></div>
             </div>
         </div>
 
@@ -96,19 +101,23 @@
                             if (winningNum == 1){
                                 this.firstDoorClick1 = true
                                 oneOrTwo += 1
-                                door = 'door' +oneOrTwo
+                                door = 'door' + oneOrTwo
+                                doorImg = 'door' + oneOrTwo + 'img'
                                
-                                document.getElementById(door).style.visibility = 'hidden'
+                                document.getElementById(door).style.zIndex = -2
+                                document.getElementById(doorImg).src="static/appMonty/doorOpen.jpg";
                                 firstRound = false
                             }
                             else if ( winningNum == 2){
                                 this.firstDoorClick1 = true
-                                document.getElementById('door3').style.visibility = 'hidden'
+                                document.getElementById('door3').style.zIndex = -2
+                                document.getElementById('door3img').src="static/appMonty/doorOpen.jpg";
                                 firstRound = false
                             }
                             else if (winningNum == 3){
                                 this.firstDoorClick1 = true
-                                document.getElementById('door2').style.visibility = 'hidden'
+                                document.getElementById('door2').style.zIndex = -2
+                                document.getElementById('door2img').src="static/appMonty/doorOpen.jpg";
                                 firstRound = false
                             }
                         }
@@ -169,24 +178,29 @@
                             // alert(winningNum)
                             if (winningNum == 2){
                                 if (oneOrTwo == 2){
-                                    document.getElementById('door3').style.visibility = 'hidden'
+                                    document.getElementById('door3').style.zIndex = -2
+                                    document.getElementById('door3img').src="static/appMonty/doorOpen.jpg";
                                     firstRound = false
                                     this.secondDoorClick1 = true
                                 }
                                 else{
                                     door = 'door' +oneOrTwo
-                                    document.getElementById(door).style.visibility = 'hidden'
+                                    doorImg = 'door' + oneOrTwo +'img'
+                                    document.getElementById(door).style.zIndex = -2
+                                    document.getElementById(doorImg).src="static/appMonty/doorOpen.jpg";
                                     firstRound = false
                                     this.secondDoorClick1 = true
                                 }
                             }
                             else if ( winningNum == 1){
-                                document.getElementById('door3').style.visibility = 'hidden'
+                                document.getElementById('door3').style.zIndex = -2
+                                document.getElementById('door3img').src="static/appMonty/doorOpen.jpg";
                                 firstRound = false
                                 this.secondDoorClick1 = true
                             }
                             else if (winningNum == 3){
-                                document.getElementById('door1').style.visibility = 'hidden'
+                                document.getElementById('door1').style.zIndex = -2
+                                document.getElementById('door1img').src="static/appMonty/doorOpen.jpg";
                                 firstRound = false
                                 this.secondDoorClick1 = true
                             }
@@ -252,20 +266,25 @@
                             // alert(winningNum)
                             if (winningNum == 3){
                                 door = 'door' +oneOrTwo
-                                document.getElementById(door).style.visibility = 'hidden'
+                                doorImg = 'door' + oneOrTwo + 'img'
+                                document.getElementById(door).style.zIndex = -2
+                                document.getElementById(doorImg).src="static/appMonty/doorOpen.jpg";
                                 firstRound = false
                                 this.thirdDoorClick1 = true
                             }
                             else{
                                 door = 'door' + oneOrTwo
-                                if (door == 2){
-                                    door += 1
-                                    document.getElementById(door).style.visibility = 'hidden'
+                                if (winningNum == 2){
+                                    door = 'door1'
+                                    document.getElementById(door).style.zIndex = -2
+                                    document.getElementById('door1img').src="static/appMonty/doorOpen.jpg";
                                     firstRound = false
                                     this.thirdDoorClick1 = true
                                 }
                                 else{
-                                    document.getElementById(door).style.visibility = 'hidden'
+                                    door = 'door2'
+                                    document.getElementById(door).style.zIndex = -2
+                                    document.getElementById('door2img').src="static/appMonty/doorOpen.jpg";
                                     firstRound = false
                                     this.thirdDoorClick1 = true
                                 }
@@ -300,7 +319,7 @@
                                 }
                                 
                             }
-                            // if door 2 loses
+                            // if door 3 loses
                             else{
                                 // if door 3 loses (no switch)
                                 if (this.thirdDoorClick1 == true){
@@ -345,9 +364,15 @@
                         firstRound = true
                         winningNum = Math.floor(Math.random() * 3) + 1
                         oneOrTwo = Math.floor(Math.random() * + 2) + 1
-                        document.getElementById('door1').style.visibility = 'visible'
-                        document.getElementById('door2').style.visibility = 'visible'
-                        document.getElementById('door3').style.visibility = 'visible'
+                        console.log(winningNum, 'winning num')
+                        console.log(oneOrTwo, 'one or two')
+                        document.getElementById('door1').style.zIndex = 0
+                        document.getElementById('door2').style.zIndex = 0
+                        document.getElementById('door3').style.zIndex = 0
+                        document.getElementById('door1img').src="static/appMonty/closedDoor.jpg";
+                        document.getElementById('door2img').src="static/appMonty/closedDoor.jpg";
+                        document.getElementById('door3img').src="static/appMonty/closedDoor.jpg";
+
                     },
                     axiosPost: function() {
                         axios({
@@ -374,7 +399,7 @@
                         fetch('/get_data', myOption)
                         .then((res) => res.json())
                         .then((res) => {
-                            console.log(res.items)
+                            // console.log(res.items)
                             this.getList = res.items
                         })
                         .then(() => {
@@ -389,6 +414,8 @@
                             this.switchedCorrect = this.lastOriginal.switchedCorrect
               
                             this.switchedWrong = this.lastOriginal.switchedWrong
+              
+                            
                         })
                         .then(() => {
                             let originalPercentagePre = this.originalRight / (this.originalRight + this.originalWrong) 
@@ -403,8 +430,8 @@
 
                 },
                 mounted() {
-                    console.log(this.oneOrTwo())
-                    console.log(door2Wins, 'd2wins')
+                    // console.log(this.oneOrTwo(), 'one or two')
+                    // console.log(door2Wins, 'd2wins')
                     this.csrfmiddlewaretoken = document.querySelector('input[name="csrfmiddlewaretoken"]').value
 
                     this.getData()
