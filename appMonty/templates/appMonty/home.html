@@ -15,7 +15,7 @@
                     <h1>The Monty Hall Problem</h1>
                 </div>
                 <div id="explanation">
-                    <p>Imagine that you are on a game show and asked to <span id="emph"> pick between three doors. One of the doors has a car behind it, and the other two has a goat. </span> After you have chosen your first door, the host opens one of the other two doors revealing a goat. He then asks you, <span id="emph"> "Would you like to switch doors or open up your original one?" </span>
+                    <p>Imagine that you are on a game show and asked to <span id="titleEmph"> pick between three doors. One of the doors has a car behind it, and the other two has a goat. </span> After you have chosen your first door, the host opens one of the other two doors revealing a goat. He then asks you, <span id="titleEmph"> "Would you like to switch doors or open up your original one?" </span>
                     </p>
                     <p>Against intuitive logic, the correct answer is to switch doors. Yes, it does in fact make you more likely to win, even if it is hard to believe. If you chose your original door, your odds of winning are only 33%; the same as your original guess. If you switch doors, you have a 66% chance to win.  
                     </p>
@@ -30,19 +30,35 @@
                     </div>
                 </div>
             </div>
+
             <div id="resultsContainer">
                 <div id="originalContainer">
                     <h1>Original Door</h1>
-                    <p>Original Wins: [[originalRight ]]</p>
-                    <p>Original Losses: [[originalWrong ]] </p>
-                    <p>Original Win Rate: [[originalPercentage]] %</p>
+                    <div class="itemRow">
+                        <p>Original Wins: </p><p>[[originalRight ]]</p>
+                    </div>
+                    <div class="itemRow">
+                        <p>Original Losses: </p><p>[[originalWrong ]]</p>
+                    </div>
+                    <div class="itemRow">
+                        <p>Original Win Rate: </p> <p>[[originalPercentage]]%</p>
+                    </div>
                 </div>
                 <div id="switchedContainer">
                     <h1>Switched Door</h1>
-                    <p>Switched Wins: [[ switchedCorrect ]]</p>
-                    <p>Switched Losses: [[ switchedWrong ]]</p>
-                    <p>Switched Win Rate: [[switchedPercentage]] % </p>
+                    <div class="itemRow">
+                        <p>Switched Wins:</p><p>[[ switchedCorrect ]]</p>
+                    </div>
+                    <div class="itemRow">
+                        <p>Switched Losses:</p><p> [[ switchedWrong ]]</p>
+                    </div>
+                    <div class="itemRow">
+                        <p>Switched Win Rate:</p><p> [[switchedPercentage]]% </p>
+                    </div>
                 </div>
+            </div>
+            <div id="inGameExplanation">
+                <p id="gameText">Choose the first Door</p>
             </div>
             <div id="gameFace">
                 <div id="door1">
@@ -63,6 +79,7 @@
                 {% comment %} <img src="{% static 'appMonty/closedDoor.jpg' %}" alt="Closed Door"> {% endcomment %}
 
             </div>
+            <a id="moreAbout" href="https://en.wikipedia.org/wiki/Monty_Hall_problem" target="_blank">About The Monty Hall Problem</a>
             <div id="zindexSheet"></div>
         </div>
 
@@ -76,6 +93,7 @@
             let door1 = document.getElementById('door1')
             let door2 = document.getElementById('door2')
             let door3 = document.getElementById('door3')
+
 
             let door1Wins = false
             let door2Wins = false
@@ -112,6 +130,7 @@
                     firstDoorClick1: false,
                     secondDoorClick1: false,
                     thirdDoorClick1: false,
+                    explanation: '',
                   }
                 },
 
@@ -126,18 +145,21 @@
                                
                                 document.getElementById(door).style.zIndex = -2
                                 document.getElementById(doorImg).src="static/appMonty/goatDoor.jpg";
+                                this.explanation = document.getElementById('inGameExplanation').innerHTML = `You chose Door 1. A goat was behind Door ${oneOrTwo}. Do you want to <span id="emph"> switch doors?</span>`
                                 firstRound = false
                             }
                             else if ( winningNum == 2){
                                 this.firstDoorClick1 = true
                                 document.getElementById('door3').style.zIndex = -2
                                 document.getElementById('door3img').src="static/appMonty/goatDoor.jpg";
+                                this.explanation = document.getElementById('inGameExplanation').innerHTML = `You chose Door 1. A goat was behind Door 3. Do you want to <span id="emph"> switch doors?</span>`
                                 firstRound = false
                             }
                             else if (winningNum == 3){
                                 this.firstDoorClick1 = true
                                 document.getElementById('door2').style.zIndex = -2
                                 document.getElementById('door2img').src="static/appMonty/goatDoor.jpg";
+                                this.explanation = document.getElementById('inGameExplanation').innerHTML = `You chose Door 1. A goat was behind Door 3. Do you want to <span id="emph"> switch doors?</span>`
                                 firstRound = false
                             }
                         }
@@ -147,22 +169,24 @@
                                 if (this.firstDoorClick1 == true){
                                     // alert('original win')
                                     document.getElementById('door1img').src="static/appMonty/car.jpg";
+                                    this.explanation = document.getElementById('inGameExplanation').innerHTML = `You chose your original door making the worse choice, but still <span id="emph">won</span>`
                                     this.originalRight = this.originalRight + 1
                                     firstRound = false
                                     this.axiosPost()
                                     document.getElementById('zindexSheet').style.zIndex = 2
-                                    setTimeout(this.resetGame, 2000)
+                                    setTimeout(this.resetGame, 3000)
                                     this.firstDoorClick1 = false
                                 }
                                 //if door 1 wins with switchs
                                 else{
                                     // alert('switched win')
                                     document.getElementById('door1img').src="static/appMonty/car.jpg";
+                                    this.explanation = document.getElementById('inGameExplanation').innerHTML = `You switched doors gaining a statistical advantage and <span id="emph">won</span>`
                                     this.switchedCorrect = this.switchedCorrect + 1
                                     firstRound = false
                                     this.axiosPost()
                                     document.getElementById('zindexSheet').style.zIndex = 2
-                                    setTimeout(this.resetGame, 2000)
+                                    setTimeout(this.resetGame, 3000)
                                     this.firstDoorClick1 = false
                                     this.secondDoorClick1 = false
                                     this.thirdDoorClick1 = false
@@ -175,11 +199,12 @@
                                 if (this.firstDoorClick1 == true){
                                     // alert('original loss')
                                     this.originalWrong = this.originalWrong + 1
+                                    this.explanation = document.getElementById('inGameExplanation').innerHTML = 'You stayed with your original door and <span id="emph">lost</span> because of it'
                                     document.getElementById('door1img').src="static/appMonty/goatDoor.jpg";
                                     firstRound = true
                                     this.axiosPost()
                                     document.getElementById('zindexSheet').style.zIndex = 2
-                                    setTimeout(this.resetGame, 2000)
+                                    setTimeout(this.resetGame, 3000)
                                     this.firstDoorClick1 = false
                                     this.secondDoorClick1 = false
                                     this.thirdDoorClick1 = false
@@ -189,10 +214,11 @@
                                     // alert('switched loss')
                                     this.switchedWrong = this.switchedWrong + 1
                                     document.getElementById('door1img').src="static/appMonty/goatDoor.jpg";
+                                    this.explanation = document.getElementById('inGameExplanation').innerHTML = 'You switched doors but still <span id="emph">lost</span>'
                                     firstRound = true
                                     this.axiosPost()
                                     document.getElementById('zindexSheet').style.zIndex = 2
-                                    setTimeout(this.resetGame, 2000)
+                                    setTimeout(this.resetGame, 3000)
                                     this.firstDoorClick1 = false
                                     this.secondDoorClick1 = false
                                     this.thirdDoorClick1 = false
@@ -208,6 +234,7 @@
                                 if (oneOrTwo == 2){
                                     document.getElementById('door3').style.zIndex = -2
                                     document.getElementById('door3img').src="static/appMonty/goatDoor.jpg";
+                                    this.explanation = document.getElementById('inGameExplanation').innerHTML = `You chose Door 2. A goat was behind Door ${oneOrTwo}. Do you want to <span id="emph"> switch doors?</span>`
                                     firstRound = false
                                     this.secondDoorClick1 = true
                                 }
@@ -216,36 +243,40 @@
                                     doorImg = 'door' + oneOrTwo +'img'
                                     document.getElementById(door).style.zIndex = -2
                                     document.getElementById(doorImg).src="static/appMonty/goatDoor.jpg";
+                                    this.explanation = document.getElementById('inGameExplanation').innerHTML = `You chose Door 2. A goat was behind Door ${oneOrTwo}. Do you want to <span id="emph"> switch doors?</span>`
                                     firstRound = false
                                     this.secondDoorClick1 = true
                                 }
                             }
-                            else if ( winningNum == 1){
-                                document.getElementById('door3').style.zIndex = -2
-                                document.getElementById('door3img').src="static/appMonty/goatDoor.jpg";
+                            else if ( winningNum == 3){
+                                document.getElementById('door1').style.zIndex = -2
+                                document.getElementById('door1img').src="static/appMonty/goatDoor.jpg";
+                                this.explanation = document.getElementById('inGameExplanation').innerHTML = `You chose Door 2. A goat was behind Door 1. Do you want to <span id="emph"> switch doors?</span>`
                                 firstRound = false
                                 this.secondDoorClick1 = true
                             }
-                            else if (winningNum == 3){
-                                document.getElementById('door1').style.zIndex = -2
-                                document.getElementById('door1img').src="static/appMonty/goatDoor.jpg";
+                            else if (winningNum == 1){
+                                document.getElementById('door3').style.zIndex = -2
+                                document.getElementById('door3img').src="static/appMonty/goatDoor.jpg";
+                                this.explanation = document.getElementById('inGameExplanation').innerHTML = `You chose Door 2. A goat was behind Door 3. Do you want to <span id="emph"> switch doors?</span>`
                                 firstRound = false
                                 this.secondDoorClick1 = true
                             }
                         }
                         // round 2
                         else{
+
                             // if door 2 wins (no switch)
-                        
                             if (winningNum == 2){
                                 if (this.secondDoorClick1 == true) {
                                     // alert('win no switch')
                                     document.getElementById('door2img').src="static/appMonty/car.jpg";
+                                    this.explanation = document.getElementById('inGameExplanation').innerHTML = `You chose your original door making the worse choice, but still <span id="emph">won</span>`
                                     this.originalRight = this.originalRight + 1
                                     firstRound = true
                                     this.axiosPost()
                                     document.getElementById('zindexSheet').style.zIndex = 2
-                                    setTimeout(this.resetGame, 2000)
+                                    setTimeout(this.resetGame, 3000)
                                     this.firstDoorClick1 = false
                                     this.secondDoorClick1 = false
                                     this.thirdDoorClick1 = false
@@ -254,11 +285,12 @@
                                 else{
                                     // alert('switched win')
                                     document.getElementById('door2img').src="static/appMonty/car.jpg";
+                                    this.explanation = document.getElementById('inGameExplanation').innerHTML = `You switched doors gaining a statistical advantage and <span id="emph">won</span>`
                                     this.switchedCorrect = this.switchedCorrect + 1
                                     firstRound = true
                                     this.axiosPost()
                                     document.getElementById('zindexSheet').style.zIndex = 2
-                                    setTimeout(this.resetGame, 2000)
+                                    setTimeout(this.resetGame, 3000)
                                     this.firstDoorClick1 = false
                                     this.secondDoorClick1 = false
                                     this.thirdDoorClick1 = false
@@ -272,10 +304,11 @@
                                     // alert('lose no switch')
                                     firstRound = true
                                     document.getElementById('door2img').src="static/appMonty/goatDoor.jpg";
+                                    this.explanation = document.getElementById('inGameExplanation').innerHTML = 'You stayed with your original door and <span id="emph">lost</span> because of it'
                                     this.originalWrong = this.originalWrong + 1
                                     this.axiosPost()
                                     document.getElementById('zindexSheet').style.zIndex = 2
-                                    setTimeout(this.resetGame, 2000)
+                                    setTimeout(this.resetGame, 3000)
                                     this.secondDoorClick1 = false
                                 }
                                 // if door 2 loses with switch
@@ -283,10 +316,11 @@
                                     // alert('switched loss')
                                     this.switchedWrong = this.switchedWrong + 1
                                     document.getElementById('door2img').src="static/appMonty/goatDoor.jpg";
+                                    this.explanation = document.getElementById('inGameExplanation').innerHTML = 'You switched doors but still <span id="emph">lost</span>'
                                     firstRound = false
                                     this.axiosPost()
                                     document.getElementById('zindexSheet').style.zIndex = 2
-                                    setTimeout(this.resetGame, 2000)
+                                    setTimeout(this.resetGame, 3000)
                                     this.firstDoorClick1 = false
                                     this.secondDoorClick1 = false
                                     this.thirdDoorClick1 = false
@@ -303,6 +337,7 @@
                                 doorImg = 'door' + oneOrTwo + 'img'
                                 document.getElementById(door).style.zIndex = -2
                                 document.getElementById(doorImg).src="static/appMonty/goatDoor.jpg";
+                                this.explanation = document.getElementById('inGameExplanation').innerHTML = `You chose Door 3. A goat was behind Door ${oneOrTwo}. Do you want to <span id="emph"> switch doors?</span>`
                                 firstRound = false
                                 this.thirdDoorClick1 = true
                             }
@@ -312,6 +347,7 @@
                                     door = 'door1'
                                     document.getElementById(door).style.zIndex = -2
                                     document.getElementById('door1img').src="static/appMonty/goatDoor.jpg";
+                                    this.explanation = document.getElementById('inGameExplanation').innerHTML = `You chose Door 3. A goat was behind Door 1. Do you want to <span id="emph"> switch doors?</span>`
                                     firstRound = false
                                     this.thirdDoorClick1 = true
                                 }
@@ -319,6 +355,7 @@
                                     door = 'door2'
                                     document.getElementById(door).style.zIndex = -2
                                     document.getElementById('door2img').src="static/appMonty/goatDoor.jpg";
+                                    this.explanation = document.getElementById('inGameExplanation').innerHTML = `You chose Door 3. A goat was behind Door 2. Do you want to <span id="emph"> switch doors?</span>`
                                     firstRound = false
                                     this.thirdDoorClick1 = true
                                 }
@@ -332,11 +369,12 @@
                                 if (this.thirdDoorClick1 == true) {
                                     document.getElementById('door3img').src="static/appMonty/car.jpg";
                                     // alert('Original Win')
+                                    this.explanation = document.getElementById('inGameExplanation').innerHTML = `You chose your original door making the worse choice, but still <span id="emph">won</span>`
                                     this.originalRight = this.originalRight + 1
                                     firstRound = true
                                     this.axiosPost()
                                     document.getElementById('zindexSheet').style.zIndex = 2
-                                    setTimeout(this.resetGame, 2000)
+                                    setTimeout(this.resetGame, 3000)
                                     this.firstDoorClick1 = false
                                     this.secondDoorClick1 = false
                                     this.thirdDoorClick1 = false
@@ -345,11 +383,12 @@
                                 else{
                                     // alert('Switched win')
                                     document.getElementById('door3img').src="static/appMonty/car.jpg";
+                                    this.explanation = document.getElementById('inGameExplanation').innerHTML = `You switched doors gaining a statistical advantage and <span id="emph">won</span>`
                                     this.switchedCorrect = this.switchedCorrect + 1
                                     firstRound = false
                                     this.axiosPost()
                                     document.getElementById('zindexSheet').style.zIndex = 2
-                                    setTimeout(this.resetGame, 2000)
+                                    setTimeout(this.resetGame, 3000)
                                     this.firstDoorClick1 = false
                                     this.secondDoorClick1 = false
                                     this.thirdDoorClick1 = false
@@ -364,7 +403,8 @@
                                     firstRound = true
                                     document.getElementById('door3img').src="static/appMonty/goatDoor.jpg";
                                     document.getElementById('zindexSheet').style.zIndex = 2
-                                    setTimeout(this.resetGame, 2000)
+                                    this.explanation = document.getElementById('inGameExplanation').innerHTML = 'You stayed with your original door and <span id="emph">lost</span> because of it'
+                                    setTimeout(this.resetGame, 3000)
                                    
                                     this.originalWrong = this.originalWrong + 1
                                     this.axiosPost()
@@ -377,9 +417,10 @@
                                     this.switchedWrong = this.switchedWrong + 1
                                     firstRound = false
                                     document.getElementById('door3img').src="static/appMonty/goatDoor.jpg";
+                                    this.explanation = document.getElementById('inGameExplanation').innerHTML = 'You switched doors but still <span id="emph">lost</span>'
                                     this.axiosPost()
                                     document.getElementById('zindexSheet').style.zIndex = 2
-                                    setTimeout(this.resetGame, 2000)
+                                    setTimeout(this.resetGame, 3000)
                                     this.firstDoorClick1 = false
                                     this.secondDoorClick1 = false
                                     this.thirdDoorClick1 = false
@@ -414,6 +455,7 @@
                         document.getElementById('door1img').src="static/appMonty/closedDoor.jpg";
                         document.getElementById('door2img').src="static/appMonty/closedDoor.jpg";
                         document.getElementById('door3img').src="static/appMonty/closedDoor.jpg";
+                        this.explanation = document.getElementById('inGameExplanation').innerHTML = 'Choose the first Door'
 
                     },
 

@@ -20,6 +20,11 @@
     margin-top: 5rem;
 }
 
+#inGameExplanation{
+    margin-top: 5rem;
+    font-size: 1.5rem;
+}
+
 #gameFace button {
     margin-left: 1rem;
     margin-right: 1rem;
@@ -39,6 +44,14 @@
 #resultsContainer h1 {
     color: orange;
 }
+
+
+.itemRow{
+    display: flex;
+    justify-content: space-between;
+}
+
+
 
 #door2img, #door1img, #door3img{
     height: 25rem;
@@ -81,7 +94,7 @@
 #explanation{
     margin-left: 20vw;
     margin-right: 20vw;
-    line-height: 1.5rem;
+    line-height:1.7rem;
 }
 #explanation p {
     margin-bottom: 1rem;
@@ -108,5 +121,30 @@
 
 #emph {
     font-weight: bold;
+    color: orange;
+}
+#titleEmph{
+    font-weight: bold;
+}
 
+#moreAbout{
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    /* text-decoration: none; */
+    color: black;
+}
+#moreAbout:hover{
+    color: red;
+}
+
+@media (max-width: 1000px) {
+    #titleContainer{
+        margin-top: 50%;
+    }
+    #explanation{
+        margin-left: 11vw;
+        margin-right: 11vw;
+        line-height: 1.7rem;
+    }
 }
