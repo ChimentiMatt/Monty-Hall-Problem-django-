@@ -138,6 +138,17 @@
     color: red;
 }
 
+#github{
+    position: absolute;
+
+    top: 1rem;
+    right: 2.5rem;
+}
+
+#github:hover {
+    opacity: .5;
+}
+
 @media (max-width: 1000px) {
     *{
         font-size: 1.4rem;
@@ -182,5 +193,13 @@
         width: 80vw;
         text-align: center;
         height: 5rem;
+    }
+
+    #github img{
+        position: absolute;
+        height: 5rem;
+
+        top: 1rem;
+        right: 1rem;
     }
 }
