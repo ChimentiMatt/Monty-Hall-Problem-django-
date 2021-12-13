@@ -105,19 +105,19 @@
                                 doorImg = 'door' + oneOrTwo + 'img'
                                
                                 document.getElementById(door).style.zIndex = -2
-                                document.getElementById(doorImg).src="static/appMonty/doorOpen.jpg";
+                                document.getElementById(doorImg).src="static/appMonty/goatDoor.jpg";
                                 firstRound = false
                             }
                             else if ( winningNum == 2){
                                 this.firstDoorClick1 = true
                                 document.getElementById('door3').style.zIndex = -2
-                                document.getElementById('door3img').src="static/appMonty/doorOpen.jpg";
+                                document.getElementById('door3img').src="static/appMonty/goatDoor.jpg";
                                 firstRound = false
                             }
                             else if (winningNum == 3){
                                 this.firstDoorClick1 = true
                                 document.getElementById('door2').style.zIndex = -2
-                                document.getElementById('door2img').src="static/appMonty/doorOpen.jpg";
+                                document.getElementById('door2img').src="static/appMonty/goatDoor.jpg";
                                 firstRound = false
                             }
                         }
@@ -125,20 +125,24 @@
                             // if door 1 wins (no switch)
                             if (winningNum == 1){
                                 if (this.firstDoorClick1 == true){
-                                    alert('original win')
+                                    // alert('original win')
+                                    document.getElementById('door1img').src="static/appMonty/car.jpg";
                                     this.originalRight = this.originalRight + 1
                                     firstRound = false
                                     this.axiosPost()
-                                    this.resetGame()
+                                    document.getElementById('zindexSheet').style.zIndex = 2
+                                    setTimeout(this.resetGame, 2000)
                                     this.firstDoorClick1 = false
                                 }
-                                //if door 1 wins with switch
+                                //if door 1 wins with switchs
                                 else{
-                                    alert('switched win')
+                                    // alert('switched win')
+                                    document.getElementById('door1img').src="static/appMonty/car.jpg";
                                     this.switchedCorrect = this.switchedCorrect + 1
                                     firstRound = false
                                     this.axiosPost()
-                                    this.resetGame()
+                                    document.getElementById('zindexSheet').style.zIndex = 2
+                                    setTimeout(this.resetGame, 2000)
                                     this.firstDoorClick1 = false
                                     this.secondDoorClick1 = false
                                     this.thirdDoorClick1 = false
@@ -149,22 +153,26 @@
                             else{
                                 // if door 1 loses (no switch)
                                 if (this.firstDoorClick1 == true){
-                                    alert('original loss')
+                                    // alert('original loss')
                                     this.originalWrong = this.originalWrong + 1
+                                    document.getElementById('door1img').src="static/appMonty/goatDoor.jpg";
                                     firstRound = true
                                     this.axiosPost()
-                                    this.resetGame()
+                                    document.getElementById('zindexSheet').style.zIndex = 2
+                                    setTimeout(this.resetGame, 2000)
                                     this.firstDoorClick1 = false
                                     this.secondDoorClick1 = false
                                     this.thirdDoorClick1 = false
                                 }
                                 // if door 1 loses with switch
                                 else{
-                                    alert('switched loss')
+                                    // alert('switched loss')
                                     this.switchedWrong = this.switchedWrong + 1
+                                    document.getElementById('door1img').src="static/appMonty/goatDoor.jpg";
                                     firstRound = true
                                     this.axiosPost()
-                                    this.resetGame()
+                                    document.getElementById('zindexSheet').style.zIndex = 2
+                                    setTimeout(this.resetGame, 2000)
                                     this.firstDoorClick1 = false
                                     this.secondDoorClick1 = false
                                     this.thirdDoorClick1 = false
@@ -179,7 +187,7 @@
                             if (winningNum == 2){
                                 if (oneOrTwo == 2){
                                     document.getElementById('door3').style.zIndex = -2
-                                    document.getElementById('door3img').src="static/appMonty/doorOpen.jpg";
+                                    document.getElementById('door3img').src="static/appMonty/goatDoor.jpg";
                                     firstRound = false
                                     this.secondDoorClick1 = true
                                 }
@@ -187,20 +195,20 @@
                                     door = 'door' +oneOrTwo
                                     doorImg = 'door' + oneOrTwo +'img'
                                     document.getElementById(door).style.zIndex = -2
-                                    document.getElementById(doorImg).src="static/appMonty/doorOpen.jpg";
+                                    document.getElementById(doorImg).src="static/appMonty/goatDoor.jpg";
                                     firstRound = false
                                     this.secondDoorClick1 = true
                                 }
                             }
                             else if ( winningNum == 1){
                                 document.getElementById('door3').style.zIndex = -2
-                                document.getElementById('door3img').src="static/appMonty/doorOpen.jpg";
+                                document.getElementById('door3img').src="static/appMonty/goatDoor.jpg";
                                 firstRound = false
                                 this.secondDoorClick1 = true
                             }
                             else if (winningNum == 3){
                                 document.getElementById('door1').style.zIndex = -2
-                                document.getElementById('door1img').src="static/appMonty/doorOpen.jpg";
+                                document.getElementById('door1img').src="static/appMonty/goatDoor.jpg";
                                 firstRound = false
                                 this.secondDoorClick1 = true
                             }
@@ -211,22 +219,26 @@
                         
                             if (winningNum == 2){
                                 if (this.secondDoorClick1 == true) {
-                                    alert('win no switch')
+                                    // alert('win no switch')
+                                    document.getElementById('door2img').src="static/appMonty/car.jpg";
                                     this.originalRight = this.originalRight + 1
                                     firstRound = true
                                     this.axiosPost()
-                                    this.resetGame()
+                                    document.getElementById('zindexSheet').style.zIndex = 2
+                                    setTimeout(this.resetGame, 2000)
                                     this.firstDoorClick1 = false
                                     this.secondDoorClick1 = false
                                     this.thirdDoorClick1 = false
                                 }
                                 //if door 2 wins with switch
                                 else{
-                                    alert('switched win')
+                                    // alert('switched win')
+                                    document.getElementById('door2img').src="static/appMonty/car.jpg";
                                     this.switchedCorrect = this.switchedCorrect + 1
                                     firstRound = true
                                     this.axiosPost()
-                                    this.resetGame()
+                                    document.getElementById('zindexSheet').style.zIndex = 2
+                                    setTimeout(this.resetGame, 2000)
                                     this.firstDoorClick1 = false
                                     this.secondDoorClick1 = false
                                     this.thirdDoorClick1 = false
@@ -237,22 +249,24 @@
                             else{
                                 // if door 2 loses (no switch)
                                 if (this.secondDoorClick1 == true){
-                                    alert('lose no switch')
+                                    // alert('lose no switch')
                                     firstRound = true
-                                    this.resetGame()
-                                   
+                                    document.getElementById('door2img').src="static/appMonty/goatDoor.jpg";
                                     this.originalWrong = this.originalWrong + 1
                                     this.axiosPost()
-                                    this.resetGame()
+                                    document.getElementById('zindexSheet').style.zIndex = 2
+                                    setTimeout(this.resetGame, 2000)
                                     this.secondDoorClick1 = false
                                 }
                                 // if door 2 loses with switch
                                 else{
-                                    alert('switched loss')
+                                    // alert('switched loss')
                                     this.switchedWrong = this.switchedWrong + 1
+                                    document.getElementById('door2img').src="static/appMonty/goatDoor.jpg";
                                     firstRound = false
                                     this.axiosPost()
-                                    this.resetGame()
+                                    document.getElementById('zindexSheet').style.zIndex = 2
+                                    setTimeout(this.resetGame, 2000)
                                     this.firstDoorClick1 = false
                                     this.secondDoorClick1 = false
                                     this.thirdDoorClick1 = false
@@ -268,7 +282,7 @@
                                 door = 'door' +oneOrTwo
                                 doorImg = 'door' + oneOrTwo + 'img'
                                 document.getElementById(door).style.zIndex = -2
-                                document.getElementById(doorImg).src="static/appMonty/doorOpen.jpg";
+                                document.getElementById(doorImg).src="static/appMonty/goatDoor.jpg";
                                 firstRound = false
                                 this.thirdDoorClick1 = true
                             }
@@ -277,14 +291,14 @@
                                 if (winningNum == 2){
                                     door = 'door1'
                                     document.getElementById(door).style.zIndex = -2
-                                    document.getElementById('door1img').src="static/appMonty/doorOpen.jpg";
+                                    document.getElementById('door1img').src="static/appMonty/goatDoor.jpg";
                                     firstRound = false
                                     this.thirdDoorClick1 = true
                                 }
                                 else{
                                     door = 'door2'
                                     document.getElementById(door).style.zIndex = -2
-                                    document.getElementById('door2img').src="static/appMonty/doorOpen.jpg";
+                                    document.getElementById('door2img').src="static/appMonty/goatDoor.jpg";
                                     firstRound = false
                                     this.thirdDoorClick1 = true
                                 }
@@ -296,23 +310,26 @@
                             if (winningNum == 3){
                                 // alert("winning 3 and made it")
                                 if (this.thirdDoorClick1 == true) {
-                                    alert('Original Win')
+                                    document.getElementById('door3img').src="static/appMonty/car.jpg";
+                                    // alert('Original Win')
                                     this.originalRight = this.originalRight + 1
                                     firstRound = true
                                     this.axiosPost()
-                                    this.resetGame()
+                                    document.getElementById('zindexSheet').style.zIndex = 2
+                                    setTimeout(this.resetGame, 2000)
                                     this.firstDoorClick1 = false
                                     this.secondDoorClick1 = false
                                     this.thirdDoorClick1 = false
                                 }
                                 //if door 3 wins with switch
                                 else{
-                                    alert('Switched win')
-                                    
+                                    // alert('Switched win')
+                                    document.getElementById('door3img').src="static/appMonty/car.jpg";
                                     this.switchedCorrect = this.switchedCorrect + 1
                                     firstRound = false
                                     this.axiosPost()
-                                    this.resetGame()
+                                    document.getElementById('zindexSheet').style.zIndex = 2
+                                    setTimeout(this.resetGame, 2000)
                                     this.firstDoorClick1 = false
                                     this.secondDoorClick1 = false
                                     this.thirdDoorClick1 = false
@@ -323,22 +340,26 @@
                             else{
                                 // if door 3 loses (no switch)
                                 if (this.thirdDoorClick1 == true){
-                                    alert('Lose Original')
+                                    // alert('Lose Original')
                                     firstRound = true
-                                    this.resetGame()
+                                    document.getElementById('door3img').src="static/appMonty/goatDoor.jpg";
+                                    document.getElementById('zindexSheet').style.zIndex = 2
+                                    setTimeout(this.resetGame, 2000)
                                    
                                     this.originalWrong = this.originalWrong + 1
                                     this.axiosPost()
-                                    this.resetGame()
+                              
                                     this.thirdDoorClick1 = false
                                 }
                                 // if door 2 loses with switch
                                 else{
-                                    alert('Loss Switched')
+                                    // alert('Loss Switched')
                                     this.switchedWrong = this.switchedWrong + 1
                                     firstRound = false
+                                    document.getElementById('door3img').src="static/appMonty/goatDoor.jpg";
                                     this.axiosPost()
-                                    this.resetGame()
+                                    document.getElementById('zindexSheet').style.zIndex = 2
+                                    setTimeout(this.resetGame, 2000)
                                     this.firstDoorClick1 = false
                                     this.secondDoorClick1 = false
                                     this.thirdDoorClick1 = false
@@ -361,6 +382,7 @@
                         return Math.floor(Math.random() * 3) + 1
                     },
                     resetGame() {
+                        document.getElementById('zindexSheet').style.zIndex = -2
                         firstRound = true
                         winningNum = Math.floor(Math.random() * 3) + 1
                         oneOrTwo = Math.floor(Math.random() * + 2) + 1

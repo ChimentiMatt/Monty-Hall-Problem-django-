@@ -34,6 +34,9 @@
     margin-left: 1rem;
     margin-right: 1rem;
 }
+#door2img:hover, #door1img:hover, #door3img:hover{
+    cursor: pointer;
+}
 
 #zindexSheet{
     position: absolute;
