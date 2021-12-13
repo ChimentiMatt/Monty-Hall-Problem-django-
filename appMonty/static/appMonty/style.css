@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-
+    font-family: 'Poppins', sans-serif;
 }
 
 #app{
@@ -29,6 +31,15 @@
     opacity: .5;
 }
 
+#resultsContainer{
+ display: flex;
+ width: 40rem;
+ justify-content: space-between;
+}
+#resultsContainer h1 {
+    color: orange;
+}
+
 #door2img, #door1img, #door3img{
     height: 25rem;
     margin-left: 1rem;
@@ -45,4 +56,57 @@
     height: 100vh;
     width: 100vw;
     z-index: -1;
+
+}
+
+#preGame{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 5;
+    background: white;
+}
+
+#titleContainer{
+    display: flex;
+    justify-content: center;
+    margin-top: 10rem;
+    margin-bottom: 2.5rem;
+    font-size: 2rem;    
+    color: orange;
+}
+
+#explanation{
+    margin-left: 20vw;
+    margin-right: 20vw;
+    line-height: 1.5rem;
+}
+#explanation p {
+    margin-bottom: 1rem;
+}
+
+#preGameBtnContainer{
+    display: flex;
+    justify-content: center;
+}
+
+#preGameBtn{
+    background-color: red;
+    padding: .5rem 1rem .5rem 1rem ;
+    border-radius: 4px;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+#preGameBtn:hover{
+    background: orange;
+}
+
+#emph {
+    font-weight: bold;
+
 }

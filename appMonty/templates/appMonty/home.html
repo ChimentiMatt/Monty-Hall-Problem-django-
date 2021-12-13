@@ -10,20 +10,40 @@
     </head>
     <body>
         <div id="app">
-            {% comment %} {% for item in original %}
-                <p>
-                    {% if forloop.last %} Original Correct:</p>  <p id="originalRight">{{ item.correct }}</p></p> 
-                    <p>Original Wrong<p id="originalWrong">{{ item.wrong}} </p></p>
-                    {% endif %}
-            {% endfor %}  {% endcomment %}
-            <p id="originalRight">Original Correct: [[originalRight ]]</p>
-   
-            <p id="originalWrong">Original Wrong: [[originalWrong ]]  </p>
-            <p> Original Win: [[originalPercentage]] %</p>
-            <br>
-            <p>Switched Door Correct: [[ switchedCorrect ]]</p>
-            <p>Switched door Wrong: [[ switchedWrong ]]</p>
-            <p>Switched Win: [[switchedPercentage]] % </p>
+            <div id="preGame">
+                <div id="titleContainer">
+                    <h1>The Monty Hall Problem</h1>
+                </div>
+                <div id="explanation">
+                    <p>Imagine that you are on a game show and asked to <span id="emph"> pick between three doors. One of the doors has a car behind it, and the other two has a goat. </span> After you have chosen your first door, the host opens one of the other two doors revealing a goat. He then asks you, <span id="emph"> "Would you like to switch doors or open up your original one?" </span>
+                    </p>
+                    <p>Against intuitive logic, the correct answer is to switch doors. Yes, it does in fact make you more likely to win, even if it is hard to believe. If you chose your original door, your odds of winning are only 33%; the same as your original guess. If you switch doors, you have a 66% chance to win.  
+                    </p>
+                    <p>This concept is often hard to believe, and many people reject it. The mind tends to make the false assumption that the choices should be the same, when in fact they are not.
+                    </p>
+                    <p>I created a program that lets you play the game and more importantly, see the results. Each time you get a goat or a car, the program saves if it was your original choice, or if you switched. Everyone's choices are being added up. Statistical truth will undoubtedly reveal itself that switching is to your advantage.
+                    </p>
+                    <p>Find it hard to beleive? Play the game and see if the math proves me wrong.
+                    </p>
+                    <div id="preGameBtnContainer">
+                        <button v-on:click="startBtn" id="preGameBtn">Start</button>
+                    </div>
+                </div>
+            </div>
+            <div id="resultsContainer">
+                <div id="originalContainer">
+                    <h1>Original Door</h1>
+                    <p>Original Wins: [[originalRight ]]</p>
+                    <p>Original Losses: [[originalWrong ]] </p>
+                    <p>Original Win Rate: [[originalPercentage]] %</p>
+                </div>
+                <div id="switchedContainer">
+                    <h1>Switched Door</h1>
+                    <p>Switched Wins: [[ switchedCorrect ]]</p>
+                    <p>Switched Losses: [[ switchedWrong ]]</p>
+                    <p>Switched Win Rate: [[switchedPercentage]] % </p>
+                </div>
+            </div>
             <div id="gameFace">
                 <div id="door1">
                     {% comment %} <button v-on:click='door1'>door</button> {% endcomment %}
@@ -42,8 +62,8 @@
                       {% csrf_token %}
                 {% comment %} <img src="{% static 'appMonty/closedDoor.jpg' %}" alt="Closed Door"> {% endcomment %}
 
-                <div id="zindexSheet"></div>
             </div>
+            <div id="zindexSheet"></div>
         </div>
 
         <script src="https://unpkg.com/vue@next"></script>
@@ -396,6 +416,11 @@
                         document.getElementById('door3img').src="static/appMonty/closedDoor.jpg";
 
                     },
+
+                    startBtn() {
+                        document.getElementById('preGame').style.display = 'none'
+                    },
+
                     axiosPost: function() {
                         axios({
                             url: "{% url 'appMonty:frontendpost' %}",
