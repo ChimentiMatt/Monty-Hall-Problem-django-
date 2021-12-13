@@ -139,8 +139,24 @@
 }
 
 @media (max-width: 1000px) {
+    *{
+        font-size: 1.4rem;
+    }
     #titleContainer{
-        margin-top: 20%;
+        margin-top: 5%;
+        margin-bottom: 1rem;
+    }
+    #titleContainer h1{
+        font-size: 3rem;
+    }
+    #originalContainer h1{
+        font-size: 2rem;
+    }
+    #switchedContainer h1{
+        font-size: 2rem;
+    }
+    #resultsContainer{
+        width: 36rem;
     }
     #explanation{
         margin-left: 11vw;
