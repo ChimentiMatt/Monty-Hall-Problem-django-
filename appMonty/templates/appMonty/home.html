@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'appMonty/style.css' %}"> {% endcomment %}
         <link rel="stylesheet" type="text/css" href="{% static 'appMonty/style.css' %}">
-        <title></title>
+        <title>The Monty Hall Problem</title>
     </head>
     <body>
         <div id="app">
@@ -447,8 +447,8 @@
                         firstRound = true
                         winningNum = Math.floor(Math.random() * 3) + 1
                         oneOrTwo = Math.floor(Math.random() * + 2) + 1
-                        console.log(winningNum, 'winning num')
-                        console.log(oneOrTwo, 'one or two')
+                        // console.log(winningNum, 'winning num')
+                        // console.log(oneOrTwo, 'one or two')
                         document.getElementById('door1').style.zIndex = 0
                         document.getElementById('door2').style.zIndex = 0
                         document.getElementById('door3').style.zIndex = 0
